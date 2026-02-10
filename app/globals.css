@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --fof-bg: #faf8ff;
+  --fof-card: #ffffff;
+  --fof-border: #e9e5f0;
+  --fof-text: #1e1b4b;
+  --fof-muted: #64748b;
+  --fof-accent: #7c3aed;
+  --fof-accent-hover: #6d28d9;
+}
+
+body {
+  background: var(--fof-bg);
+  color: var(--fof-text);
+}
