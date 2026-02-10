@@ -41,3 +41,26 @@ export function formatScrapedAt(isoString) {
     return isoString;
   }
 }
+
+/** Next 00:00 UTC (when the daily scrape runs). */
+export function getNextMidnightUTC() {
+  const now = new Date();
+  const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0));
+  if (now < today) return today;
+  const tomorrow = new Date(today);
+  tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
+  return tomorrow;
+}
+
+/** Format next update time (e.g. "12 Feb 2026, 00:00 UTC") */
+export function formatNextUpdateUTC(date) {
+  return date.toLocaleString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "UTC",
+    timeZoneName: "short",
+  });
+}

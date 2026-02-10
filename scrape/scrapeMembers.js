@@ -19,8 +19,10 @@ const CHAPTERS_PATH = join(ROOT, "scrape", "chapters.json");
 const DATA_DIR = join(ROOT, "data");
 const OUTPUT_PATH = join(DATA_DIR, "members.json");
 
-// Delay between requests (ms) to avoid hammering the server
-const DELAY_MS = 1800;
+// Concurrency: run this many requests in parallel
+const CONCURRENCY = 10;
+// Minimum ms between *starting* each request (spreads load, avoids hammering the server)
+const START_DELAY_MS = 400;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -33,7 +35,7 @@ function loadChapters() {
   const raw = readFileSync(CHAPTERS_PATH, "utf-8");
   const chapters = JSON.parse(raw);
   if (!Array.isArray(chapters)) {
-    throw new Error("chapters.json must be an array of { city, url }");
+    throw new Error("chapters.json must be an array of { city, region, url }");
   }
   return chapters;
 }
@@ -79,7 +81,7 @@ function extractMemberCount(html, url) {
  * Fetch one chapter page and return member count or null on failure.
  */
 async function scrapeChapter(chapter) {
-  const { city, url } = chapter;
+  const { city, region, url } = chapter;
   try {
     const res = await fetch(url, {
       headers: {
@@ -91,7 +93,7 @@ async function scrapeChapter(chapter) {
 
     if (!res.ok) {
       console.warn(`  [${city}] HTTP ${res.status} – ${url}`);
-      return { city, url, members: null, error: `HTTP ${res.status}` };
+      return { city, region: region || null, url, members: null, error: `HTTP ${res.status}` };
     }
 
     const html = await res.text();
@@ -99,15 +101,16 @@ async function scrapeChapter(chapter) {
 
     if (members === null) {
       console.warn(`  [${city}] Could not find member count – ${url}`);
-      return { city, url, members: null, error: "No member count found" };
+      return { city, region: region || null, url, members: null, error: "No member count found" };
     }
 
     console.log(`  [${city}] ${members} members`);
-    return { city, url, members, error: null };
+    return { city, region: region || null, url, members, error: null };
   } catch (err) {
     console.warn(`  [${city}] Error: ${err.message}`);
     return {
       city,
+      region: region || null,
       url,
       members: null,
       error: err.message || "Request failed",
@@ -135,12 +138,13 @@ function getISTTimestamp() {
 }
 
 /**
- * Build output entry: city, members (or 0 if failed), url, scrapedAt (IST).
+ * Build output entry: city, region, members (or 0 if failed), url, scrapedAt (IST).
  * Optionally include error when scraping failed for debugging.
  */
 function toOutputRow(row, scrapedAtIST) {
   const out = {
     city: row.city,
+    region: row.region ?? null,
     members: row.members != null ? row.members : 0,
     url: row.url,
     scrapedAt: scrapedAtIST,
@@ -152,16 +156,30 @@ function toOutputRow(row, scrapedAtIST) {
 async function main() {
   console.log("Reading chapters from scrape/chapters.json…");
   const chapters = loadChapters();
-  console.log(`Found ${chapters.length} chapter(s).\n`);
+  console.log(
+    `Found ${chapters.length} chapter(s). Scraping with concurrency ${CONCURRENCY}, ${START_DELAY_MS}ms between starts.\n`
+  );
 
   const scrapedAtIST = getISTTimestamp();
-  const results = [];
-  for (let i = 0; i < chapters.length; i++) {
-    console.log(`Scraping (${i + 1}/${chapters.length}) ${chapters[i].city}…`);
-    const row = await scrapeChapter(chapters[i]);
-    results.push(toOutputRow(row, scrapedAtIST));
-    if (i < chapters.length - 1) await sleep(DELAY_MS);
+  const results = new Array(chapters.length);
+  let nextIndex = 0;
+  let lastStartTime = 0;
+
+  async function worker() {
+    while (true) {
+      const i = nextIndex++;
+      if (i >= chapters.length) return;
+      const now = Date.now();
+      const wait = lastStartTime + START_DELAY_MS - now;
+      if (wait > 0) await sleep(wait);
+      lastStartTime = Date.now();
+      console.log(`Scraping (${i + 1}/${chapters.length}) ${chapters[i].city}…`);
+      const row = await scrapeChapter(chapters[i]);
+      results[i] = toOutputRow(row, scrapedAtIST);
+    }
   }
+
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
   mkdirSync(DATA_DIR, { recursive: true });
   writeFileSync(OUTPUT_PATH, JSON.stringify(results, null, 2), "utf-8");
