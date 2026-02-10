@@ -9,9 +9,16 @@
     "start": "next start",
     "scrape": "node scrape/scrapeMembers.js"
   },
-  "keywords": ["scraper", "fof", "figma", "bevy", "dashboard"],
+  "keywords": [
+    "scraper",
+    "fof",
+    "figma",
+    "bevy",
+    "dashboard"
+  ],
   "license": "MIT",
   "dependencies": {
+    "@vercel/analytics": "^1.6.1",
     "cheerio": "^1.0.0",
     "next": "^14.2.0",
     "node-fetch": "^3.3.2",
