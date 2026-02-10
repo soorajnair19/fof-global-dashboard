@@ -1,5 +1,6 @@
-import { getMembers, formatScrapedAt, getNextMidnightUTC, formatNextUpdateUTC } from "./lib/data";
+import { getMembers, formatScrapedAt } from "./lib/data";
 import DashboardTabs from "./components/DashboardTabs";
+import NextUpdateOn from "./components/NextUpdateOn";
 
 export const revalidate = 60;
 
@@ -38,7 +39,7 @@ export default async function DashboardPage() {
                 <span className="mx-1.5">|</span>
               </>
             )}
-            Next update on {formatNextUpdateUTC(getNextMidnightUTC())}
+            <NextUpdateOn />
           </p>
         </div>
       </header>

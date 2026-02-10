@@ -23,18 +23,18 @@ export async function getMembers() {
   return JSON.parse(raw);
 }
 
-/** Format IST timestamp for display (e.g. "11 Feb 2026, 00:59 IST") */
+/** Format timestamp in UTC for display (e.g. "11 Feb 2026, 00:59 UTC") */
 export function formatScrapedAt(isoString) {
   if (!isoString) return "—";
   try {
     const d = new Date(isoString);
-    return d.toLocaleString("en-IN", {
+    return d.toLocaleString("en-GB", {
       day: "numeric",
       month: "short",
       year: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-      timeZone: "Asia/Kolkata",
+      timeZone: "UTC",
       timeZoneName: "short",
     });
   } catch {
