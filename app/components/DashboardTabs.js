@@ -2,7 +2,9 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import InsightsTab from "./InsightsTab";
 
+const INSIGHTS_LABEL = "Insights";
 const GLOBAL_TOP_LABEL = "Global Top 10";
 const REGION_ORDER = [
   "Africa",
@@ -13,6 +15,7 @@ const REGION_ORDER = [
   "Latin America",
   "Middle East",
   "North America",
+  "Interests",
 ];
 // Shorter tab labels to avoid horizontal scroll
 const REGION_DISPLAY = {
@@ -21,8 +24,8 @@ const REGION_DISPLAY = {
 };
 const MEDALS = ["🥇", "🥈", "🥉"];
 
-export default function DashboardTabs({ members }) {
-  const [activeTab, setActiveTab] = useState(GLOBAL_TOP_LABEL);
+export default function DashboardTabs({ members = [], chapters = [] }) {
+  const [activeTab, setActiveTab] = useState(INSIGHTS_LABEL);
 
   const regions = useMemo(() => {
     const set = new Set();
@@ -33,6 +36,7 @@ export default function DashboardTabs({ members }) {
   }, [members]);
 
   const filteredMembers = useMemo(() => {
+    if (activeTab === INSIGHTS_LABEL) return [];
     if (activeTab === GLOBAL_TOP_LABEL) {
       return members.slice(0, 10);
     }
@@ -41,8 +45,8 @@ export default function DashboardTabs({ members }) {
       .sort((a, b) => (b.members || 0) - (a.members || 0));
   }, [members, activeTab]);
 
-  const tabLabels = [GLOBAL_TOP_LABEL, ...regions.map((r) => REGION_DISPLAY[r] ?? r)];
-  const tabValues = [GLOBAL_TOP_LABEL, ...regions];
+  const tabLabels = [INSIGHTS_LABEL, GLOBAL_TOP_LABEL, ...regions.map((r) => REGION_DISPLAY[r] ?? r)];
+  const tabValues = [INSIGHTS_LABEL, GLOBAL_TOP_LABEL, ...regions];
 
   return (
     <div className="space-y-6">
@@ -68,7 +72,10 @@ export default function DashboardTabs({ members }) {
         </nav>
       </div>
 
-      {/* Table */}
+      {/* Insights or Table */}
+      {activeTab === INSIGHTS_LABEL ? (
+        <InsightsTab members={members} chapters={chapters} />
+      ) : (
       <div className="rounded-2xl border border-fof-border dark:border-[#262626] bg-white dark:bg-[#171717] shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
@@ -144,6 +151,7 @@ export default function DashboardTabs({ members }) {
           Click a city chapter to open on friends.figma.com
         </div>
       </div>
+      )}
     </div>
   );
 }

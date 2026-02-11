@@ -4,7 +4,7 @@
   "description": "Friends of Figma chapter rankings – scraper + dashboard",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 6969",
     "build": "next build",
     "start": "next start",
     "scrape": "node scrape/scrapeMembers.js"

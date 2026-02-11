@@ -1,4 +1,4 @@
-import { getMembers, formatScrapedAt } from "./lib/data";
+import { getMembers, getChapters, formatScrapedAt } from "./lib/data";
 import DashboardTabs from "./components/DashboardTabs";
 import NextUpdateOn from "./components/NextUpdateOn";
 import ThemeToggle from "./components/ThemeToggle";
@@ -7,6 +7,7 @@ export const revalidate = 60;
 
 export default async function DashboardPage() {
   let members = [];
+  let chapters = [];
   let scrapedAt = null;
   let error = null;
 
@@ -21,6 +22,13 @@ export default async function DashboardPage() {
     }
   } catch (e) {
     error = e.message;
+  }
+
+  try {
+    chapters = await getChapters();
+    if (!Array.isArray(chapters)) chapters = [];
+  } catch {
+    chapters = [];
   }
 
   return (
@@ -55,17 +63,17 @@ export default async function DashboardPage() {
           </div>
         )}
 
-        {!error && members.length === 0 && (
+        {!error && members.length === 0 && chapters.length === 0 && (
           <div className="rounded-xl bg-slate-100 dark:bg-[#171717] dark:border dark:border-[#262626] text-slate-600 dark:text-[#a1a1a1] px-4 py-8 text-center text-sm">
             No chapter data yet. Run the scraper or set NEXT_PUBLIC_DATA_URL.
           </div>
         )}
 
-        {!error && members.length > 0 && (
-          <DashboardTabs members={members} />
+        {!error && (members.length > 0 || chapters.length > 0) && (
+          <DashboardTabs members={members} chapters={chapters} />
         )}
 
-        {!error && members.length > 0 && (
+        {!error && (members.length > 0 || chapters.length > 0) && (
           <footer className="mt-8 text-center text-xs text-fof-muted dark:text-[#a1a1a1] space-y-1">
             <p>
               Data is updated daily. View each chapter at{" "}

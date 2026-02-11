@@ -2,6 +2,15 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 /**
+ * Load chapters list from scrape/chapters.json (for Insights tab).
+ */
+export async function getChapters() {
+  const path = join(process.cwd(), "scrape", "chapters.json");
+  const raw = readFileSync(path, "utf-8");
+  return JSON.parse(raw);
+}
+
+/**
  * Load member data for the dashboard.
  * - If NEXT_PUBLIC_DATA_URL is set (e.g. GitHub raw URL), fetch from there (revalidate every 60s).
  * - Otherwise read from local data/members.json (e.g. when running locally).
