@@ -12,6 +12,16 @@
   --fof-accent-hover: #6d28d9;
 }
 
+.dark {
+  --fof-bg: #0a0a0a;
+  --fof-card: #171717;
+  --fof-border: #262626;
+  --fof-text: #fafafa;
+  --fof-muted: #a1a1a1;
+  --fof-accent: #a78bfa;
+  --fof-accent-hover: #8b5cf6;
+}
+
 body {
   background: var(--fof-bg);
   color: var(--fof-text);
