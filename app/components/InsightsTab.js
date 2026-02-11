@@ -53,9 +53,9 @@ function PieChart({ data, title, size = 200 }) {
 
   return (
     <div className="rounded-2xl border border-fof-border dark:border-[#262626] bg-white dark:bg-[#171717] p-5 shadow-sm">
-      <h3 className="text-sm font-semibold text-fof-ink dark:text-[#fafafa] mb-4">
+      <p className="text-xs font-medium text-fof-muted dark:text-[#a1a1a1] uppercase tracking-wider mb-4">
         {title}
-      </h3>
+      </p>
       <div className="flex flex-col sm:flex-row items-center gap-6">
         <svg width={size} height={size} className="flex-shrink-0">
           {total === 0 ? (
