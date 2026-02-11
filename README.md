@@ -51,6 +51,14 @@ A Next.js dashboard visualizes the rankings (chapter, member count, link to frie
 
 Commands: `npm run dev` (develop), `npm run build` then `npm run start` (production).
 
+### Vercel Speed Insights
+
+The dashboard uses [Vercel Speed Insights](https://vercel.com/docs/speed-insights/quickstart). To complete setup:
+
+1. **Package & component** – Already in the repo: `@vercel/speed-insights` and `<SpeedInsights />` in `app/layout.js`.
+2. **Enable in Vercel** – In the [Vercel dashboard](https://vercel.com/dashboard), open your project → **Speed Insights** tab → **Enable**.
+3. **Deploy** – After the next deploy, the `/_vercel/speed-insights/*` routes are added and metrics will appear under the Speed Insights tab once there is traffic.
+
 ## Tuning the scraper
 
 Member count is inferred from the Bevy page HTML. If your Bevy pages use different markup, edit **`extractMemberCount()`** in `scrape/scrapeMembers.js` and adjust the selectors or regex (see comments in that function).
