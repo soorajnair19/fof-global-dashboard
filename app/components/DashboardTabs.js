@@ -52,14 +52,14 @@ export default function DashboardTabs({ members = [], chapters = [] }) {
     <div className="space-y-6">
       {/* Tabs */}
       <div className="border-b border-fof-border dark:border-[#262626]">
-        <nav className="flex gap-1 overflow-x-auto scrollbar-thin pb-px" aria-label="Regions">
+        <nav className="flex flex-wrap gap-x-1 gap-y-0 pb-px" aria-label="Regions">
           {tabLabels.map((label, i) => {
             const value = tabValues[i];
             return (
               <button
                 key={value}
                 onClick={() => setActiveTab(value)}
-                className={`whitespace-nowrap px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
+                className={`whitespace-nowrap px-3 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
                   activeTab === value
                     ? "border-fof-purple text-fof-purple dark:border-fof-accent dark:text-fof-accent"
                     : "border-transparent text-fof-muted hover:text-fof-ink hover:border-fof-border dark:text-[#a1a1a1] dark:hover:text-[#fafafa] dark:hover:border-[#404040]"

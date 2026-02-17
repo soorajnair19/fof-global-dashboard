@@ -34,7 +34,7 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen bg-[#faf8ff] dark:bg-[#0a0a0a]">
       <header className="border-b border-fof-border bg-white dark:bg-[#171717] backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-5 flex justify-between items-start gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex justify-between items-start gap-4">
           <div>
           <h1 className="text-xl font-semibold text-[#1e1b4b] dark:text-[#fafafa] tracking-tight">
           Friends of Figma
@@ -56,7 +56,7 @@ export default async function DashboardPage() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         {error && (
           <div className="rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-[#404040] text-amber-800 dark:text-amber-200 px-4 py-3 text-sm">
             Could not load data: {error}
