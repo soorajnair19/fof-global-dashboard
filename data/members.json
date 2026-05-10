@@ -161,6 +161,13 @@
     "scrapedAt": "2026-05-10T09:17:07+05:30"
   },
   {
+    "city": "Noida",
+    "region": "India",
+    "members": 110,
+    "url": "https://friends.figma.com/noida/",
+    "scrapedAt": "2026-05-10T19:03:54+05:30"
+  },
+  {
     "city": "Abeokuta",
     "region": "Africa",
     "members": 513,
@@ -1111,6 +1118,20 @@
     "members": 212,
     "url": "https://friends.figma.com/shonan/",
     "scrapedAt": "2026-05-10T09:17:07+05:30"
+  },
+  {
+    "city": "Tama",
+    "region": "Japan",
+    "members": 6,
+    "url": "https://friends.figma.com/tama/",
+    "scrapedAt": "2026-05-10T19:03:54+05:30"
+  },
+  {
+    "city": "Hyogo",
+    "region": "Japan",
+    "members": 0,
+    "url": "https://friends.figma.com/hyogo/",
+    "scrapedAt": "2026-05-10T19:03:54+05:30"
   },
   {
     "city": "Barranquilla",
