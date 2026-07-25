@@ -35,7 +35,7 @@ Results are written to **`data/members.json`**. The script waits ~1.5–2 second
 
 ## Automation (GitHub Actions)
 
-- **Schedule:** The workflow runs once per day at 00:00 UTC.
+- **Schedule:** The workflow runs once per day at 10:00 AM IST (04:30 UTC).
 - **Manual run:** In GitHub, open **Actions → “Scrape chapter members” → Run workflow**.
 - **After the run:** The job installs dependencies, runs the scraper, then commits and pushes the updated **`data/members.json`** to the same branch (so the repo always holds the latest counts).
 

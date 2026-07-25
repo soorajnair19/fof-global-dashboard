@@ -51,17 +51,30 @@ export function formatScrapedAt(isoString) {
   }
 }
 
-/** Next 00:00 UTC (when the daily scrape runs). */
-export function getNextMidnightUTC() {
+/** Scheduled scrape time: 10:00 AM IST = 04:30 UTC. */
+const SCRAPE_HOUR_UTC = 4;
+const SCRAPE_MINUTE_UTC = 30;
+
+/** Next scheduled scrape (daily at 04:30 UTC / 10:00 AM IST). */
+export function getNextScrapeUTC() {
   const now = new Date();
-  const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0));
+  const today = new Date(
+    Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      SCRAPE_HOUR_UTC,
+      SCRAPE_MINUTE_UTC,
+      0
+    )
+  );
   if (now < today) return today;
   const tomorrow = new Date(today);
   tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
   return tomorrow;
 }
 
-/** Format next update time (e.g. "12 Feb 2026, 00:00 UTC") */
+/** Format next update time (e.g. "12 Feb 2026, 04:30 UTC") */
 export function formatNextUpdateUTC(date) {
   return date.toLocaleString("en-GB", {
     day: "numeric",
