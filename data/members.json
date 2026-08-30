@@ -338,6 +338,27 @@
     "scrapedAt": "2026-08-30T15:32:27+05:30"
   },
   {
+    "city": "Antananarivo",
+    "region": "Africa",
+    "members": 19,
+    "url": "https://friends.figma.com/antananarivo/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
+    "city": "Cape Town",
+    "region": "Africa",
+    "members": 43,
+    "url": "https://friends.figma.com/cape-town/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
+    "city": "Johannesburg",
+    "region": "Africa",
+    "members": 111,
+    "url": "https://friends.figma.com/johannesburg/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
     "city": "Auckland",
     "region": "Asia-Pacific",
     "members": 469,
@@ -956,6 +977,41 @@
     "scrapedAt": "2026-08-30T15:32:27+05:30"
   },
   {
+    "city": "Belgrade",
+    "region": "Europe",
+    "members": 2,
+    "url": "https://friends.figma.com/belgrade/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
+    "city": "Gothenburg",
+    "region": "Europe",
+    "members": 22,
+    "url": "https://friends.figma.com/gothenburg/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
+    "city": "Hannover",
+    "region": "Europe",
+    "members": 9,
+    "url": "https://friends.figma.com/hannover/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
+    "city": "Oxford",
+    "region": "Europe",
+    "members": 46,
+    "url": "https://friends.figma.com/oxford/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
+    "city": "Stuttgart",
+    "region": "Europe",
+    "members": 1,
+    "url": "https://friends.figma.com/stuttgart/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
     "city": "Aomori",
     "region": "Japan",
     "members": 19,
@@ -1325,6 +1381,20 @@
     "scrapedAt": "2026-08-30T15:32:27+05:30"
   },
   {
+    "city": "Monterrey",
+    "region": "Latin America",
+    "members": 28,
+    "url": "https://friends.figma.com/monterrey/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
+    "city": "Natal",
+    "region": "Latin America",
+    "members": 51,
+    "url": "https://friends.figma.com/natal/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
     "city": "Abu Dhabi",
     "region": "Middle East",
     "members": 211,
@@ -1681,6 +1751,13 @@
     "region": "North America",
     "members": 22,
     "url": "https://friends.figma.com/phoenix/",
+    "scrapedAt": "2026-08-30T15:32:27+05:30"
+  },
+  {
+    "city": "Nashville",
+    "region": "North America",
+    "members": 1,
+    "url": "https://friends.figma.com/nashville/",
     "scrapedAt": "2026-08-30T15:32:27+05:30"
   },
   {
