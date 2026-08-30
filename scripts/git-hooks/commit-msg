@@ -1,0 +1,6 @@
+#!/bin/sh
+# Strip Cursor co-author trailers injected by tooling.
+msg_file="$1"
+tmp=$(mktemp)
+grep -vi -E '^Co-authored-by:.*cursoragent@cursor\.com' "$msg_file" > "$tmp" || true
+mv "$tmp" "$msg_file"
